@@ -25,7 +25,6 @@
     <input type="text" placeholder="Arduino, DHT22, ESP32..." id="searchInput" oninput="handleSearch()" onkeydown="if(event.key==='Enter')handleSearch()">
   </div>
   <div class="nav-actions">
-    <button class="btn-track-nav" onclick="openTracking()"><span>📍</span> Track Order</button>
     <button class="btn-cart" onclick="openCart()">🛒 Cart <span class="cart-badge" id="cartBadge">0</span></button>
   </div>
 </nav>
@@ -46,7 +45,6 @@
           <div class="trust-item">⚡ <strong>42m</strong> avg. delivery</div>
           <div class="trust-item">📦 <strong>2,400+</strong> in stock</div>
           <div class="trust-item">⭐ <strong>4.9/5</strong> rating</div>
-          <div class="trust-item" style="cursor:pointer;color:var(--green)" onclick="openTracking()">📍 <strong>Track Order</strong></div>
         </div>
       </div>
       <div class="hero-visual"><div class="hero-product-stack" id="heroStack"></div></div>
@@ -115,11 +113,10 @@
           <li><div class="check">✓</div> Free delivery on orders above ₹499</li>
           <li><div class="check">✓</div> Contactless delivery available</li>
           <li><div class="check">✓</div> 100% guarantee — late = free</li>
-          <li><div class="check">✓</div> 7-day hassle-free returns</li>
+          <li><div class="check">✓</div> 24-hours hassle-free returns</li>
         </ul>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn-primary" onclick="showCatPage('all')">Start Shopping →</button>
-          <button class="btn-secondary" onclick="openTracking()">📍 Track Order</button>
         </div>
       </div>
     </div>
@@ -523,6 +520,312 @@
   </div>
 </div>
 
+<!-- ══ ABOUT US PAGE ══ -->
+<div class="page" id="page-about">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>About SparkVolt</h1>
+      <p>Your trusted platform for fast electronics delivery</p>
+    </div>
+  </div>
+  <div style="max-width:900px;margin:0 auto;padding:40px 28px">
+    <div style="background:var(--surface);padding:40px;border-radius:16px;box-shadow:var(--shadow)">
+      <h2 style="font-family:'Fraunces',serif;font-size:1.8rem;margin-bottom:20px;color:var(--navy)">About SparkVolt ⚡</h2>
+      <p style="font-size:1rem;line-height:1.6;color:var(--text);margin-bottom:16px">
+        SparkVolt is India's fastest electronics delivery platform, bringing 2,400+ electronic components to your doorstep in under 60 minutes. Founded in 2025, we revolutionize how makers, engineers, and students get their components.
+      </p>
+      <h3 style="font-size:1.3rem;margin-top:28px;margin-bottom:12px;color:var(--navy)">Our Mission</h3>
+      <p style="font-size:0.95rem;line-height:1.6;color:var(--muted)">
+        To make electronics components accessible to everyone, anywhere, anytime. We believe that great ideas shouldn't be delayed by supply chain inefficiencies.
+      </p>
+      <h3 style="font-size:1.3rem;margin-top:28px;margin-bottom:12px;color:var(--navy)">Why SparkVolt?</h3>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:8px 0">✓ <strong>Fast Delivery:</strong> 42 minutes average delivery time</li>
+        <li style="padding:8px 0">✓ <strong>Wide Selection:</strong> 2,400+ components in stock</li>
+        <li style="padding:8px 0">✓ <strong>Quality Assured:</strong> 4.9/5 customer rating</li>
+        <li style="padding:8px 0">✓ <strong>7-Day Returns:</strong> Hassle-free return policy</li>
+        <li style="padding:8px 0">✓ <strong>Expert Support:</strong> 24/7 customer service</li>
+      </ul>
+      <button class="btn-primary" onclick="showCatPage('all')" style="margin-top:28px;padding:12px 26px">Start Shopping →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONTACT SUPPORT PAGE ══ -->
+<div class="page" id="page-contact">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>Contact Support</h1>
+      <p>We're here to help. Reach out anytime!</p>
+    </div>
+  </div>
+  <div style="max-width:900px;margin:0 auto;padding:40px 28px">
+    <div class="cat-page-layout">
+      <div style="flex:1">
+        <div style="background:var(--surface);padding:32px;border-radius:16px;box-shadow:var(--shadow);margin-bottom:24px">
+          <h3 style="font-size:1.2rem;margin-bottom:16px;color:var(--navy)">📧 Email Support</h3>
+          <p style="color:var(--text);margin-bottom:8px">support@sparkvolt.in</p>
+          <p style="color:var(--muted);font-size:0.9rem">Response within 2 hours</p>
+        </div>
+        <div style="background:var(--surface);padding:32px;border-radius:16px;box-shadow:var(--shadow);margin-bottom:24px">
+          <h3 style="font-size:1.2rem;margin-bottom:16px;color:var(--navy)">💬 Live Chat</h3>
+          <p style="color:var(--text);margin-bottom:8px">Available 24/7</p>
+          <p style="color:var(--muted);font-size:0.9rem">Real-time support from our team</p>
+        </div>
+        <div style="background:var(--surface);padding:32px;border-radius:16px;box-shadow:var(--shadow)">
+          <h3 style="font-size:1.2rem;margin-bottom:16px;color:var(--navy)">📱 Phone Support</h3>
+          <p style="color:var(--text);margin-bottom:8px">+91 98765 XXXXX</p>
+          <p style="color:var(--muted);font-size:0.9rem">Mon-Fri: 9 AM - 9 PM IST</p>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div style="background:var(--accent2);color:white;padding:32px;border-radius:16px;box-shadow:var(--shadow)">
+          <h3 style="font-size:1.3rem;margin-bottom:20px">Quick Support Form</h3>
+          <div style="margin-bottom:16px">
+            <label style="display:block;margin-bottom:6px;font-weight:600">Your Email</label>
+            <input type="email" placeholder="you@example.com" style="width:100%;padding:10px;border:none;border-radius:8px;font-family:inherit">
+          </div>
+          <div style="margin-bottom:16px">
+            <label style="display:block;margin-bottom:6px;font-weight:600">Subject</label>
+            <input type="text" placeholder="How can we help?" style="width:100%;padding:10px;border:none;border-radius:8px;font-family:inherit">
+          </div>
+          <div style="margin-bottom:16px">
+            <label style="display:block;margin-bottom:6px;font-weight:600">Message</label>
+            <textarea placeholder="Tell us more..." style="width:100%;padding:10px;border:none;border-radius:8px;font-family:inherit;height:120px;resize:none"></textarea>
+          </div>
+          <button onclick="showToast('✅ Message sent! We\'ll reply within 2 hours.','green')" style="width:100%;padding:12px;background:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;color:var(--accent2)">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RETURNS & REFUNDS PAGE ══ -->
+<div class="page" id="page-returns">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>Returns & Refunds</h1>
+      <p>We stand behind our products. Easy returns within 7 days.</p>
+    </div>
+  </div>
+  <div style="max-width:900px;margin:0 auto;padding:40px 28px">
+    <div style="background:var(--surface);padding:40px;border-radius:16px;box-shadow:var(--shadow)">
+      <h2 style="font-size:1.5rem;margin-bottom:24px;color:var(--navy);font-family:'Fraunces',serif">7-Day Return Policy</h2>
+      <div style="background:var(--bg);padding:16px;border-left:4px solid var(--green);margin-bottom:24px;border-radius:8px">
+        <p style="margin:0;color:var(--text)"><strong>✓ Hassle-free returns</strong> - No questions asked within 7 days of delivery</p>
+      </div>
+      <h3 style="font-size:1.2rem;margin-top:28px;margin-bottom:12px;color:var(--navy)">How to Return</h3>
+      <ol style="padding-left:24px;line-height:1.8">
+        <li>Log in to your account and find the order</li>
+        <li>Click "Return Item" and select reason for return</li>
+        <li>Print the return label and pack your item</li>
+        <li>Drop off at nearest collection point</li>
+        <li>Get refund within 3 business days</li>
+      </ol>
+      <h3 style="font-size:1.2rem;margin-top:28px;margin-bottom:12px;color:var(--navy)">Refund Details</h3>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:8px 0">✓ Full refund to original payment method</li>
+        <li style="padding:8px 0">✓ Return shipping is FREE</li>
+        <li style="padding:8px 0">✓ 3-5 business days processing time</li>
+        <li style="padding:8px 0">✓ No questions asked policy</li>
+      </ul>
+      <p style="margin-top:28px;color:var(--muted);font-size:0.9rem">For detailed information, contact: returns@sparkvolt.in</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BULK ORDERS PAGE ══ -->
+<div class="page" id="page-bulk">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>Bulk Orders</h1>
+      <p>Special pricing for corporate and bulk purchases</p>
+    </div>
+  </div>
+  <div style="max-width:900px;margin:0 auto;padding:40px 28px">
+    <div style="background:var(--surface);padding:40px;border-radius:16px;box-shadow:var(--shadow)">
+      <h2 style="font-size:1.5rem;margin-bottom:24px;color:var(--navy);font-family:'Fraunces',serif">Bulk Order Benefits</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px">
+        <div style="background:var(--bg);padding:20px;border-radius:12px">
+          <div style="font-size:1.3rem;margin-bottom:8px">📊</div>
+          <h4 style="margin-bottom:8px;color:var(--navy)">Volume Discounts</h4>
+          <p style="color:var(--muted);font-size:0.9rem">Get up to 40% off on bulk quantities</p>
+        </div>
+        <div style="background:var(--bg);padding:20px;border-radius:12px">
+          <div style="font-size:1.3rem;margin-bottom:8px">⚡</div>
+          <h4 style="margin-bottom:8px;color:var(--navy)">Fast Fulfillment</h4>
+          <p style="color:var(--muted);font-size:0.9rem">Priority processing for bulk orders</p>
+        </div>
+        <div style="background:var(--bg);padding:20px;border-radius:12px">
+          <div style="font-size:1.3rem;margin-bottom:8px">📦</div>
+          <h4 style="margin-bottom:8px;color:var(--navy)">Flexible Delivery</h4>
+          <p style="color:var(--muted);font-size:0.9rem">Customized delivery schedules available</p>
+        </div>
+        <div style="background:var(--bg);padding:20px;border-radius:12px">
+          <div style="font-size:1.3rem;margin-bottom:8px">👥</div>
+          <h4 style="margin-bottom:8px;color:var(--navy)">Dedicated Account Manager</h4>
+          <p style="color:var(--muted);font-size:0.9rem">Personal support for your needs</p>
+        </div>
+      </div>
+      <div style="background:#fff3cd;padding:16px;border-left:4px solid #ff9800;border-radius:8px;margin-bottom:24px">
+        <p style="margin:0;color:#333"><strong>💡 Tip:</strong> Orders above ₹50,000 qualify for special corporate pricing</p>
+      </div>
+      <h3 style="font-size:1.2rem;margin-bottom:12px;color:var(--navy)">Get a Bulk Quote</h3>
+      <p style="color:var(--muted);margin-bottom:16px">Email us your requirements for a personalized quote</p>
+      <button class="btn-primary" onclick="showToast('📧 Email: bulk@sparkvolt.in - We will get back to you within 24 hours!','green')" style="padding:12px 24px">Request Quote</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FAQs PAGE ══ -->
+<div class="page" id="page-faq">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>Frequently Asked Questions</h1>
+      <p>Find answers to common questions</p>
+    </div>
+  </div>
+  <div style="max-width:900px;margin:0 auto;padding:40px 28px">
+    <div style="background:var(--surface);padding:40px;border-radius:16px;box-shadow:var(--shadow)">
+      <div style="margin-bottom:24px">
+        <h3 style="color:var(--navy);margin-bottom:8px">⚡ How fast is the delivery?</h3>
+        <p style="color:var(--muted);margin:0">Most orders are delivered within 42 minutes. We have micro-warehouses across the city for ultra-fast delivery.</p>
+      </div>
+      <hr style="border:none;border-top:1px solid var(--border);margin:24px 0">
+      <div style="margin-bottom:24px">
+        <h3 style="color:var(--navy);margin-bottom:8px">💳 What payment methods do you accept?</h3>
+        <p style="color:var(--muted);margin:0">We accept credit cards, debit cards, UPI, net banking, and cash on delivery.</p>
+      </div>
+      <hr style="border:none;border-top:1px solid var(--border);margin:24px 0">
+      <div style="margin-bottom:24px">
+        <h3 style="color:var(--navy);margin-bottom:8px">📦 Are orders tracked in real-time?</h3>
+        <p style="color:var(--muted);margin:0">Yes! All orders come with live GPS tracking. You can see your rider's location on the interactive map.</p>
+      </div>
+      <hr style="border:none;border-top:1px solid var(--border);margin:24px 0">
+      <div style="margin-bottom:24px">
+        <h3 style="color:var(--navy);margin-bottom:8px">🔄 Can I return items?</h3>
+        <p style="color:var(--muted);margin:0">Yes, you have 7 days to return any item for a full refund, no questions asked.</p>
+      </div>
+      <hr style="border:none;border-top:1px solid var(--border);margin:24px 0">
+      <div>
+        <h3 style="color:var(--navy);margin-bottom:8px">❓ What if my item doesn't arrive on time?</h3>
+        <p style="color:var(--muted);margin:0">Your order is free! We guarantee delivery within 60 minutes or your money back.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CAREERS PAGE ══ -->
+<div class="page" id="page-careers">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>Careers at SparkVolt</h1>
+      <p>Join our mission to revolutionize electronics delivery</p>
+    </div>
+  </div>
+  <div style="max-width:900px;margin:0 auto;padding:40px 28px">
+    <div style="background:var(--surface);padding:40px;border-radius:16px;box-shadow:var(--shadow);margin-bottom:32px">
+      <h2 style="font-size:1.5rem;margin-bottom:20px;color:var(--navy);font-family:'Fraunces',serif">Why Work With Us?</h2>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:12px 0;border-bottom:1px solid var(--border)">✓ <strong>Fast-paced startup environment</strong> - Be part of transforming logistics</li>
+        <li style="padding:12px 0;border-bottom:1px solid var(--border)">✓ <strong>Competitive compensation</strong> - Attractive salaries and benefits</li>
+        <li style="padding:12px 0;border-bottom:1px solid var(--border)">✓ <strong>Growth opportunities</strong> - Clear career progression</li>
+        <li style="padding:12px 0">✓ <strong>Health & wellness</strong> - Comprehensive health coverage</li>
+      </ul>
+    </div>
+    <div style="background:var(--bg);padding:32px;border-radius:16px;border:2px dashed var(--border);text-align:center">
+      <h3 style="color:var(--navy);margin-bottom:12px">Open Positions</h3>
+      <p style="color:var(--muted);margin-bottom:24px">Software Engineers • Logistics Managers • Customer Support • Operations</p>
+      <button class="btn-primary" onclick="showToast('✉️ Send your resume to: careers@sparkvolt.in','green')" style="padding:12px 28px">Apply Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BLOG PAGE ══ -->
+<div class="page" id="page-blog">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>SparkVolt Blog</h1>
+      <p>Electronics tips, tutorials, and insights</p>
+    </div>
+  </div>
+  <div style="max-width:900px;margin:0 auto;padding:40px 28px">
+    <div style="background:var(--surface);padding:24px;border-radius:12px;box-shadow:var(--shadow);margin-bottom:24px">
+      <div style="font-size:0.85rem;color:var(--muted);margin-bottom:8px">Tutorial • 5 min read</div>
+      <h3 style="color:var(--navy);margin-bottom:8px;font-size:1.2rem">Getting Started with Arduino: Complete Beginner's Guide</h3>
+      <p style="color:var(--muted);margin-bottom:12px">Learn the basics of Arduino programming and build your first LED project in 30 minutes.</p>
+      <button onclick="showToast('📖 Blog article coming soon!','green')" style="background:none;border:none;color:var(--accent2);cursor:pointer;text-decoration:underline;padding:0">Read More →</button>
+    </div>
+    <div style="background:var(--surface);padding:24px;border-radius:12px;box-shadow:var(--shadow);margin-bottom:24px">
+      <div style="font-size:0.85rem;color:var(--muted);margin-bottom:8px">Product Review • 4 min read</div>
+      <h3 style="color:var(--navy);margin-bottom:8px;font-size:1.2rem">ESP32 vs Raspberry Pi: Which Should You Choose in 2026?</h3>
+      <p style="color:var(--muted);margin-bottom:12px">Detailed comparison of these popular development boards to help you make the right choice.</p>
+      <button onclick="showToast('📖 Blog article coming soon!','green')" style="background:none;border:none;color:var(--accent2);cursor:pointer;text-decoration:underline;padding:0">Read More →</button>
+    </div>
+    <div style="background:var(--surface);padding:24px;border-radius:12px;box-shadow:var(--shadow)">
+      <div style="font-size:0.85rem;color:var(--muted);margin-bottom:8px">News • 3 min read</div>
+      <h3 style="color:var(--navy);margin-bottom:8px;font-size:1.2rem">SparkVolt Expands to 5 New Cities! 🚀</h3>
+      <p style="color:var(--muted);margin-bottom:12px">We're thrilled to announce our expansion and faster delivery times across India.</p>
+      <button onclick="showToast('📖 Blog article coming soon!','green')" style="background:none;border:none;color:var(--accent2);cursor:pointer;text-decoration:underline;padding:0">Read More →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ API DOCS PAGE ══ -->
+<div class="page" id="page-api">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>API Documentation</h1>
+      <p>Integrate SparkVolt into your application</p>
+    </div>
+  </div>
+  <div style="max-width:900px;margin:0 auto;padding:40px 28px">
+    <div style="background:var(--surface);padding:40px;border-radius:16px;box-shadow:var(--shadow)">
+      <h2 style="font-size:1.5rem;margin-bottom:24px;color:var(--navy);font-family:'Fraunces',serif">SparkVolt API</h2>
+      <div style="background:#f5f5f5;padding:20px;border-radius:8px;margin-bottom:24px;font-family:monospace;font-size:0.9rem;overflow-x:auto">
+        <code>GET /api/v1/products</code><br>
+        <code>GET /api/v1/orders/{orderId}</code><br>
+        <code>POST /api/v1/orders</code><br>
+        <code>GET /api/v1/tracking/{orderId}</code>
+      </code></div>
+      <h3 style="font-size:1.2rem;margin-bottom:12px;color:var(--navy)">Base URL</h3>
+      <p style="color:var(--muted);margin-bottom:24px;font-family:monospace;background:#f5f5f5;padding:12px;border-radius:8px">https://api.sparkvolt.in/v1</p>
+      <h3 style="font-size:1.2rem;margin-bottom:12px;color:var(--navy)">Authentication</h3>
+      <p style="color:var(--muted);margin-bottom:24px">All requests require an API key in the Authorization header: <code style="background:#f5f5f5;padding:4px 8px;border-radius:4px">Authorization: Bearer YOUR_API_KEY</code></p>
+      <h3 style="font-size:1.2rem;margin-bottom:12px;color:var(--navy)">Getting Started</h3>
+      <p style="color:var(--muted)">For complete documentation and API keys, visit <strong>docs.sparkvolt.in</strong></p>
+      <button class="btn-primary" onclick="showToast('📚 Full API docs available at docs.sparkvolt.in','green')" style="margin-top:24px;padding:12px 24px">View Full Documentation</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRIVACY POLICY PAGE ══ -->
+<div class="page" id="page-privacy">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>Privacy Policy</h1>
+      <p>Your privacy is important to us</p>
+    </div>
+  </div>
+  <div style="max-width:900px;margin:0 auto;padding:40px 28px">
+    <div style="background:var(--surface);padding:40px;border-radius:16px;box-shadow:var(--shadow)">
+      <h2 style="font-size:1.2rem;margin-bottom:16px;color:var(--navy)">1. Information We Collect</h2>
+      <p style="color:var(--muted);margin-bottom:24px">We collect information you provide (name, email, address, payment details) and information about how you use our service.</p>
+      <h2 style="font-size:1.2rem;margin-bottom:16px;color:var(--navy)">2. How We Use Your Information</h2>
+      <ul style="list-style:none;padding:0;margin-bottom:24px">
+        <li style="padding:6px 0">• To process and deliver your orders</li>
+        <li style="padding:6px 0">• To communicate with you about your orders</li>
+        <li style="padding:6px 0">• To improve our services</li>
+        <li style="padding:6px 0">• To comply with legal obligations</li>
+      </ul>
+      <h2 style="font-size:1.2rem;margin-bottom:16px;color:var(--navy)">3. Data Protection</h2>
+      <p style="color:var(--muted);margin-bottom:24px">We implement industry-standard security measures to protect your personal information. All data is encrypted and stored securely.</p>
+      <h2 style="font-size:1.2rem;margin-bottom:16px;color:var(--navy)">4. Your Rights</h2>
+      <p style="color:var(--muted)">You have the right to access, update, or delete your personal information at any time. Contact privacy@sparkvolt.in for assistance.</p>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -545,19 +848,19 @@
       </div>
       <div class="footer-col">
         <h4>Help</h4>
-        <a onclick="openTracking()">Track Order</a>
-        <a onclick="showToast('📩 Support: support@sparkvolt.in')">Contact Support</a>
-        <a onclick="showToast('↩️ Returns portal opening...')">Returns & Refunds</a>
-        <a onclick="showToast('📦 Bulk orders: bulk@sparkvolt.in')">Bulk Orders</a>
-        <a onclick="showToast('❓ FAQ page coming soon!')">FAQs</a>
+        <a onclick="showPage('tracking')">Track Order</a>
+        <a onclick="showPage('contact')">Contact Support</a>
+        <a onclick="showPage('returns')">Returns & Refunds</a>
+        <a onclick="showPage('bulk')">Bulk Orders</a>
+        <a onclick="showPage('faq')">FAQs</a>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
-        <a onclick="showToast('ℹ️ About page coming soon!')">About SparkVolt</a>
-        <a onclick="showToast('💼 Careers: careers@sparkvolt.in')">Careers</a>
-        <a onclick="showToast('📝 Blog coming soon!')">Blog</a>
-        <a onclick="showToast('🔑 API docs: docs.sparkvolt.in')">API Docs</a>
-        <a onclick="showToast('🔒 Privacy Policy')">Privacy Policy</a>
+        <a onclick="showPage('about')">About SparkVolt</a>
+        <a onclick="showPage('careers')">Careers</a>
+        <a onclick="showPage('blog')">Blog</a>
+        <a onclick="showPage('api')">API Docs</a>
+        <a onclick="showPage('privacy')">Privacy Policy</a>
       </div>
     </div>
     <div class="footer-bottom">
