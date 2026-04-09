@@ -2028,6 +2028,51 @@ function showToast(msg, type = "") {
 }
 
 // ════════════════════════════════
+// CONTACT FORM HANDLER
+// ════════════════════════════════
+function handleContactSubmit(e) {
+  e.preventDefault();
+
+  const form = document.getElementById("contactForm");
+  const name = document.getElementById("contactName").value.trim();
+  const email = document.getElementById("contactEmail").value.trim();
+  const subject = document.getElementById("contactSubject").value.trim();
+  const message = document.getElementById("contactMessage").value.trim();
+  const btn = document.getElementById("contactSubmitBtn");
+
+  // Validation
+  if (!name || !email || !subject || !message) {
+    showToast("❌ Please fill in all fields", "");
+    return;
+  }
+
+  if (!email.includes("@")) {
+    showToast("❌ Please enter a valid email address", "");
+    return;
+  }
+
+  // Show loading state
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  btn.style.opacity = "0.7";
+
+  // Simulate sending (in real app, this would be an API call)
+  setTimeout(() => {
+    // Reset form
+    form.reset();
+    btn.disabled = false;
+    btn.textContent = "Send Message";
+    btn.style.opacity = "1";
+
+    // Show success animation and toast
+    showToast(
+      "✅ Message sent successfully! We'll reply within 2 hours.",
+      "green",
+    );
+  }, 1200);
+}
+
+// ════════════════════════════════
 // INIT
 // ════════════════════════════════
 renderHomePage();
