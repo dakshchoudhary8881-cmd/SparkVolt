@@ -11,14 +11,14 @@
 
 <!-- ══ NAV ══ -->
 <nav id="mainNav">
-  <a class="nav-logo" onclick="showPage('home')">Spark<em>Volt</em> ⚡</a>
-  <div class="nav-links">
-    <a class="nav-link active" onclick="showPage('home')" id="nl-home">Home</a>
-    <a class="nav-link" onclick="showCatPage('Microcontrollers')" id="nl-mc">Microcontrollers</a>
-    <a class="nav-link" onclick="showCatPage('Sensors')" id="nl-sensors">Sensors</a>
-    <a class="nav-link" onclick="showCatPage('Wireless')" id="nl-wireless">Wireless</a>
-    <a class="nav-link" onclick="showCatPage('Kits')" id="nl-kits">Build Kits</a>
-    <a class="nav-link" onclick="showCatPage('Tools')" id="nl-tools">Tools</a>
+  <a class="nav-logo" onclick="navigateTo('home')">Spark<em>Volt</em> ⚡</a>
+  <div class="nav-links" id="navLinks">
+    <a class="nav-link active" onclick="navigateTo('home')" id="nl-home">Home</a>
+    <a class="nav-link" onclick="navigateTo('category', 'Microcontrollers')" id="nl-mc">Microcontrollers</a>
+    <a class="nav-link" onclick="navigateTo('category', 'Sensors')" id="nl-sensors">Sensors</a>
+    <a class="nav-link" onclick="navigateTo('category', 'Wireless')" id="nl-wireless">Wireless</a>
+    <a class="nav-link" onclick="navigateTo('category', 'Kits')" id="nl-kits">Build Kits</a>
+    <a class="nav-link" onclick="navigateTo('category', 'Tools')" id="nl-tools">Tools</a>
   </div>
   <div class="nav-search-wrap">
     <span class="nav-search-icon">🔍</span>
@@ -26,8 +26,16 @@
   </div>
   <div class="nav-actions">
     <button class="btn-cart" onclick="openCart()">🛒 Cart <span class="cart-badge" id="cartBadge">0</span></button>
+    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
 
 <!-- ══ HOME PAGE ══ -->
 <div class="page active" id="page-home">
@@ -38,8 +46,8 @@
         <h1>Electronics,<br>Right at Your<br><em>Doorstep.</em></h1>
         <p class="hero-sub">Resistors to Raspberry Pis — 2,400+ components delivered in under 60 minutes. No waiting, no excuses.</p>
         <div class="hero-ctas">
-          <button class="btn-primary" onclick="showCatPage('all')">Shop Components →</button>
-          <button class="btn-secondary" onclick="showCatPage('Kits')">Explore Build Kits</button>
+          <button class="btn-primary" onclick="navigateTo('category', 'all')">Shop Components →</button>
+          <button class="btn-secondary" onclick="navigateTo('category', 'Kits')">Explore Build Kits</button>
         </div>
         <div class="hero-trust">
           <div class="trust-item">⚡ <strong>42m</strong> avg. delivery</div>
@@ -1030,6 +1038,13 @@
       <p style="margin:0;color:var(--muted);font-size:0.9rem">
         For any privacy concerns or questions, contact us at <strong style="color:var(--navy)">privacy@sparkvolt.in</strong>
       </p>
+    </div>
+  </div>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
       <p style="margin:12px 0 0;color:var(--muted);font-size:0.85rem">
         Last Updated: April 2026 | © 2026 SparkVolt Technologies Pvt. Ltd.
       </p>

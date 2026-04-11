@@ -1,4 +1,127 @@
 // ════════════════════════════════
+// NAVIGATION & HISTORY MANAGEMENT
+// ════════════════════════════════
+let navigationHistory = ["home"];
+let currentPage = "home";
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Initialize history management
+  window.addEventListener("popstate", (e) => {
+    if (e.state && e.state.page) {
+      showPageWithoutHistory(e.state.page, e.state.param);
+    } else {
+      showPageWithoutHistory("home");
+    }
+  });
+
+  // Prevent escape by replacing initial history
+  history.replaceState({ page: "home" }, "", "#home");
+});
+
+function navigateTo(page, param = null) {
+  closeMobileMenu();
+  closeCart();
+
+  if (page === "category" && param) {
+    showCatPageWithHistory(param);
+  } else if (page === "home") {
+    showPageWithHistory("home");
+  } else {
+    showPageWithHistory(page, param);
+  }
+}
+
+function showPageWithHistory(id, param = null) {
+  history.pushState(
+    { page: id, param: param },
+    "",
+    "#" + id + (param ? "/" + param : ""),
+  );
+  showPageWithoutHistory(id, param);
+}
+
+function showPageWithoutHistory(id, param = null) {
+  document
+    .querySelectorAll(".page")
+    .forEach((p) => p.classList.remove("active"));
+  document.getElementById("page-" + id).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  currentPage = id;
+  updateNavigation(id, param);
+}
+
+function updateNavigation(page, param = null) {
+  document
+    .querySelectorAll(".nav-link")
+    .forEach((l) => l.classList.remove("active"));
+
+  if (page === "home") {
+    document.getElementById("nl-home")?.classList.add("active");
+  } else if (page === "category" && param) {
+    const map = {
+      Microcontrollers: "nl-mc",
+      Sensors: "nl-sensors",
+      Wireless: "nl-wireless",
+      Kits: "nl-kits",
+      Tools: "nl-tools",
+      all: null,
+    };
+    if (map[param])
+      document.getElementById(map[param])?.classList.add("active");
+  }
+}
+
+// Mobile menu toggle
+function toggleMobileMenu() {
+  const menu = document.getElementById("navLinks");
+  const overlay = document.getElementById("mobileMenuOverlay");
+  const hamburger = document.getElementById("hamburger");
+
+  menu.classList.toggle("open");
+  overlay.classList.toggle("open");
+  hamburger.classList.toggle("active");
+}
+
+function closeMobileMenu() {
+  document.getElementById("navLinks").classList.remove("open");
+  document.getElementById("mobileMenuOverlay").classList.remove("open");
+  document.getElementById("hamburger").classList.remove("active");
+}
+
+// Legacy function compatibility
+function showPage(id) {
+  showPageWithHistory(id);
+}
+
+function showCatPage(cat) {
+  showCatPageWithHistory(cat);
+}
+
+function showCatPageWithHistory(cat) {
+  currentCat = cat || "all";
+  priceLimit = 4000;
+  showPageWithHistory("category", cat);
+  const pr = document.getElementById("priceRange");
+  if (pr) {
+    pr.value = 4000;
+    document.getElementById("priceVal").textContent = "4000";
+  }
+  const info =
+    currentCat === "all"
+      ? { name: "All Products", sub: "Browse our complete catalog" }
+      : {
+          name: currentCat,
+          sub: `${products.filter((p) => p.cat === currentCat).length} products in this category`,
+        };
+  document.getElementById("catBreadcrumb").textContent = info.name;
+  document.getElementById("catPageTitle").textContent = info.name;
+  document.getElementById("catPageSub").textContent = info.sub;
+  renderSidebar();
+  renderCatProducts();
+  updateNavigation("category", cat);
+}
+
+// ════════════════════════════════
 // DATA
 // ════════════════════════════════
 const products = [
@@ -1621,7 +1744,8 @@ function openProduct(id) {
   document.getElementById("relatedGrid").innerHTML = renderProdCards(
     [...related, ...extra].slice(0, 4),
   );
-  showPage("detail");
+  showPageWithHistory("detail", id);
+  closeMobileMenu();
 }
 
 function changeQty(delta) {
