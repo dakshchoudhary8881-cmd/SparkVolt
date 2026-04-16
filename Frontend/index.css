@@ -55,6 +55,7 @@
 }
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 body {
   background: var(--bg);
@@ -112,19 +113,22 @@ a {
 }
 .page {
   display: none;
-  animation: pageIn 0.3s ease;
+  animation: pageIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
 }
 .page.active {
   display: block;
+  animation-fill-mode: both;
 }
 @keyframes pageIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(10px) translateZ(0);
+    backface-visibility: hidden;
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
 }
 @keyframes blink {
@@ -220,6 +224,29 @@ a {
   }
 }
 
+/* Performance Animations */
+@keyframes smoothFadeIn {
+  from {
+    opacity: 0;
+    transform: translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
+@keyframes smoothSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-8px, 0) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) translateZ(0);
+  }
+}
+
 /* ── NAV ── */
 nav {
   position: sticky;
@@ -261,12 +288,13 @@ nav {
   color: var(--muted);
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   background: none;
   text-decoration: none;
   display: inline-block;
   white-space: nowrap;
+  will-change: color, background;
 }
 .nav-link:hover,
 .nav-link.active {
@@ -326,7 +354,8 @@ nav {
   font-family: "DM Sans", sans-serif;
   font-size: 0.84rem;
   font-weight: 600;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
 }
 .btn-cart:hover {
   background: var(--navy2);
@@ -489,10 +518,11 @@ nav {
   font-size: 0.93rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
   gap: 7px;
+  will-change: transform, box-shadow;
 }
 .btn-primary:hover {
   background: var(--navy2);
@@ -512,7 +542,8 @@ nav {
   font-size: 0.93rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: border-color, background, transform;
 }
 .btn-secondary:hover {
   border-color: var(--navy);
@@ -1206,9 +1237,12 @@ nav {
   flex-direction: column;
   height: 100%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  will-change: transform, box-shadow, border-color;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 .prod-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) translateZ(0);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   border-color: var(--border2);
 }
@@ -1224,6 +1258,7 @@ nav {
   overflow: hidden;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
+  will-change: background;
 }
 
 .prod-emoji {
@@ -1526,12 +1561,14 @@ nav {
   border-radius: var(--radius);
   padding: 22px;
   cursor: pointer;
-  transition: all 0.25s;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
+  will-change: transform, background, border-color;
+  transform: translateZ(0);
 }
 .kit-card:hover {
   background: rgba(255, 255, 255, 0.13);
-  transform: translateY(-4px);
+  transform: translateY(-4px) translateZ(0);
   border-color: rgba(255, 255, 255, 0.22);
 }
 .kit-card-img {

@@ -1,4 +1,30 @@
 // ════════════════════════════════
+// PERFORMANCE OPTIMIZATIONS
+// ════════════════════════════════
+const debounce = (func, wait) => {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+};
+
+const throttle = (func, limit) => {
+  let inThrottle;
+  return function (...args) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
+};
+
+if (document.documentElement.style.WebkitFontSmoothing !== undefined) {
+  document.documentElement.style.WebkitFontSmoothing = "antialiased";
+}
+
+// ════════════════════════════════
 // NAVIGATION & HISTORY MANAGEMENT
 // ════════════════════════════════
 let navigationHistory = ["home"];
@@ -16,6 +42,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Prevent escape by replacing initial history
   history.replaceState({ page: "home" }, "", "#home");
+
+  // Setup debounced search
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    const debouncedSearch = debounce(handleSearch, 300);
+    searchInput.addEventListener("input", debouncedSearch);
+  }
 });
 
 function navigateTo(page, param = null) {
@@ -133,7 +166,7 @@ const products = [
     orig: 349,
     badge: "Bestseller",
     badgeType: "badge-pop",
-    image: "images/Microcontrollers/Arduino UNO R3.webp",
+    image: "images/Microcontrollers/Arduino_UNO_R3.webp",
     desc: "The iconic ATmega328P board. 14 digital I/O, 6 analog inputs, USB via ATmega16U2. Perfect for beginners and prototyping.",
     specs: {
       MCU: "ATmega328P",
@@ -152,7 +185,7 @@ const products = [
     orig: 249,
     badge: "Sale",
     badgeType: "badge-sale",
-    image: "images/Microcontrollers/Arduino NANO V3.jpeg",
+    image: "images/Microcontrollers/Arduino NANO.jpeg",
     desc: "Compact ATmega328 board. Breadboard friendly, USB mini-B, same power as Uno in a tiny package.",
     specs: {
       MCU: "ATmega328",
@@ -171,7 +204,7 @@ const products = [
     orig: 699,
     badge: "",
     badgeType: "",
-    image: "images/Microcontrollers/Arduino Mega 2560.jpeg",
+    image: "images/Microcontrollers/Arduino MEGA 2560.jpeg",
     desc: "High-performance AVR board with 54 digital I/O pins and 16 analog inputs. Ideal for complex projects.",
     specs: {
       MCU: "ATmega2560",
@@ -190,8 +223,8 @@ const products = [
     orig: 499,
     badge: "Hot",
     badgeType: "badge-hot",
+    image: "images/Microcontrollers/ESP32 Dev Board.webp",
     desc: "Dual-core LX6 at 240MHz, built-in WiFi 802.11 b/g/n and Bluetooth 4.2 BLE. 34 GPIO, hall sensor, touch sensor.",
-    image: "images/Microcontrollers/ESP34 DEVBOARD.jpeg",
     specs: {
       CPU: "Dual LX6",
       Clock: "240 MHz",
@@ -209,7 +242,7 @@ const products = [
     orig: 399,
     badge: "Hot",
     badgeType: "badge-pop",
-    image: "images/Microcontrollers/ESP 32-C3.jpeg",
+    image: "images/Microcontrollers/ESP32-C3.jpeg",
     desc: "Built around a 32-bit RISC-V Single-Core processor. It uses 3.3V logic, meaning its pins output 3.3V and can be damaged by 5V signals. It is highly efficient, featuring built-in Wi-Fi and Bluetooth 5.0 (LE), but has fewer GPIO pins than the original ESP32.",
     specs: {
       MCU: "RISC-V Single-Core",
@@ -304,7 +337,7 @@ const products = [
     orig: 399,
     badge: "New",
     badgeType: "badge-new",
-    image: "Images/Microcontrollers/NUCLEO-F446RE.jpeg",
+    image: "images/Microcontrollers/NUCLEO-F446RE.jpeg",
     desc: "STM32F446 Nucleo-144 development board. 180MHz ARM Cortex-M4, USB, multiple interfaces.",
     specs: {
       MCU: "STM32F446RET6",
@@ -380,7 +413,7 @@ const products = [
     orig: 109,
     badge: "",
     badgeType: "",
-    image: "Images/Sensors/DHT22 Sensor.jpeg",
+    image: "images/Sensors/DHT22 Sensor.jpeg",
     desc: "High-accuracy digital temp & humidity. ±0.5°C temp, ±2% RH. Single-wire interface, 3.3–6V.",
     specs: {
       "Temp Range": "-40 to 80°C",
@@ -454,7 +487,6 @@ const products = [
     id: 14,
     name: "BMP280 Pressure",
     cat: "Sensors",
-    emoji: "🌤️",
     price: 99,
     orig: 129,
     badge: "",
@@ -474,7 +506,6 @@ const products = [
     id: 15,
     name: "Sound Sensor",
     cat: "Sensors",
-    emoji: "🎙️",
     price: 49,
     orig: 69,
     badge: "",
@@ -494,7 +525,6 @@ const products = [
     id: 16,
     name: "IR Obstacle Sensor",
     cat: "Sensors",
-    emoji: "🔴",
     price: 39,
     orig: 49,
     badge: "",
@@ -514,12 +544,11 @@ const products = [
     id: 16.1,
     name: "ACS712 Current Sensor",
     cat: "Sensors",
-    emoji: "⚡",
     price: 79,
     orig: 99,
     badge: "",
     badgeType: "",
-    image: "images/Sensors/ACS712 Current Sensor.jpeg",
+    image: "images/Sensors/ACS712 Current Sensor.webp",
     desc: "Ratiometric current sensor. ±5A, ±30A options. Output 0–5V to ADC. PCB hall effect.",
     specs: {
       Range: "±5A / ±30A",
@@ -534,12 +563,11 @@ const products = [
     id: 16.2,
     name: "DS18B20 Temp Sensor",
     cat: "Sensors",
-    emoji: "🌡️",
     price: 49,
     orig: 69,
     badge: "Popular",
     badgeType: "badge-pop",
-    image: "images/Sensors/DS18B20 Temp Sensor.jpeg",
+    image: "images/Sensors/DS18B20 Temp Sensor.webp",
     desc: "Digital temperature sensor. 1-wire protocol, ±0.5°C accuracy, -55 to 125°C range.",
     specs: {
       Range: "-55 to 125°C",
@@ -554,12 +582,11 @@ const products = [
     id: 16.3,
     name: "TSL2591 Light Sensor",
     cat: "Sensors",
-    emoji: "💡",
     price: 129,
     orig: 159,
     badge: "",
     badgeType: "",
-    image: "images/Sensors/TSL2591 Light Sensor.jpeg",
+    image: "images/Sensors/TSL2591 Light Sensor.webp",
     desc: "Digital ambient light sensor with IR filtering. I2C interface, auto-gain adjusts to light levels.",
     specs: {
       Range: "188 µlux–88k lux",
@@ -574,12 +601,11 @@ const products = [
     id: 16.4,
     name: "LM393 Soil Moisture",
     cat: "Sensors",
-    emoji: "🌱",
     price: 39,
     orig: 59,
     badge: "New",
     badgeType: "badge-new",
-    image: "images/Sensors/Soil Moisture Sensor.jpeg",
+    image: "images/Sensors/LM393 Soil Moisture.webp",
     desc: "Capacitive soil moisture sensor. Corrosion-resistant, 3.3–5V, analog + digital output.",
     specs: {
       Type: "Capacitive",
@@ -594,13 +620,11 @@ const products = [
     id: 16.5,
     name: "MQ5 Gas Sensor",
     cat: "Sensors",
-    emoji: "💨",
     price: 89,
     orig: 119,
     badge: "",
     badgeType: "",
-    image: "images/Sensors/MQ5 Gas Sensor.jpeg",
-    desc: "LPG, natural gas, town gas detector. Sensitive 300–10000 ppm. Analog output with comparator.",
+    image: "images/Sensors/MQ5 Gas Sensor.webp",
     specs: {
       "Gas Type": "LPG, CH4, CO",
       Range: "300–10000 ppm",
@@ -614,12 +638,11 @@ const products = [
     id: 17,
     name: "100Ω Resistors (100pcs)",
     cat: "Passive",
-    emoji: "⚡",
     price: 49,
     orig: 59,
     badge: "",
     badgeType: "",
-    image: "images/Passive/100 Ohm Resistor.jpeg",
+    image: "",
     desc: "Carbon film, 1% tolerance, 1/4W. Axial lead, 100 pieces in anti-static packaging.",
     specs: {
       Resistance: "100Ω",
@@ -639,7 +662,7 @@ const products = [
     orig: 99,
     badge: "",
     badgeType: "",
-    image: "images/Passive/Potentiometer Kit.jpeg",
+    image: "",
     desc: "B10K linear potentiometers. 15mm shaft, smooth operation, multiple resistance values included.",
     specs: {
       Resistance: "10K ohm",
@@ -659,7 +682,7 @@ const products = [
     orig: 129,
     badge: "Popular",
     badgeType: "badge-pop",
-    image: "images/Passive/Switch Pack.jpeg",
+    image: "",
     desc: "Push buttons, toggle switches, rocker switches. 50 pieces in organized storage box.",
     specs: {
       Types: "Mixed (Push/Toggle)",
@@ -679,7 +702,7 @@ const products = [
     orig: 189,
     badge: "Popular",
     badgeType: "badge-pop",
-    image: "images/Passive/Resistor Kit 600pcs.jpeg",
+    image: "",
     desc: "30 values × 20 each = 600 resistors. 10Ω to 1MΩ, 1% tolerance, sorted in labeled box.",
     specs: {
       Values: "30 (10Ω–1MΩ)",
@@ -699,7 +722,7 @@ const products = [
     orig: 89,
     badge: "",
     badgeType: "",
-    image: "images/Passive/Ceramic Capacitor 100nF.jpeg",
+    image: "",
     desc: "100nF (0.1µF) monolithic ceramic capacitors. 50V, 50 pieces. Essential bypass caps.",
     specs: {
       Value: "100nF",
@@ -719,7 +742,7 @@ const products = [
     orig: 119,
     badge: "",
     badgeType: "",
-    image: "images/Passive/LED Pack.jpeg",
+    image: "",
     desc: "5mm LEDs — red, green, blue, yellow, white. 20 of each. Standard 20mA.",
     specs: {
       Colors: "5 (20 each)",
@@ -739,7 +762,7 @@ const products = [
     orig: 149,
     badge: "",
     badgeType: "",
-    image: "images/Passive/Electrolytic Capacitor.jpeg",
+    image: "",
     desc: "12 common values, 1µF to 1000µF, 25V–50V. Through-hole, labeled compartment box.",
     specs: {
       Values: "12 types",
@@ -754,12 +777,11 @@ const products = [
     id: 22,
     name: "NRF24L01 RF Module",
     cat: "Wireless",
-    emoji: "📻",
     price: 129,
     orig: 159,
     badge: "",
     badgeType: "",
-    image: "images/Wireless/NRF24L01 RF Module.jpeg",
+    image: "images/Wireless/NRF24L01 RF Module.webp",
     desc: "2.4GHz transceiver. Up to 1km, 125 channels, SPI, 1.9–3.6V. Low power, ideal for wireless sensors.",
     specs: {
       Frequency: "2.4 GHz",
@@ -774,12 +796,11 @@ const products = [
     id: 23,
     name: "HC-05 Bluetooth",
     cat: "Wireless",
-    emoji: "📘",
     price: 179,
     orig: 219,
     badge: "",
     badgeType: "",
-    image: "images/Wireless/HC-05 Bluetooth Module.jpeg",
+    image: "images/Wireless/HC-05 Bluetooth.webp",
     desc: "Classic Bluetooth 2.0 SPP module. Master/Slave modes. UART at 3.3V. Easy Android pairing.",
     specs: {
       Standard: "Bluetooth 2.0",
@@ -794,12 +815,11 @@ const products = [
     id: 24.1,
     name: "Zigbee CC2530 Module",
     cat: "Wireless",
-    emoji: "🔷",
     price: 249,
     orig: 319,
     badge: "New",
     badgeType: "badge-new",
-    image: "images/Wireless/Zigbee CC2530 Module.jpeg",
+    image: "images/Wireless/Zigbee CC2530 Module.webp",
     desc: "Zigbee network module with SoC architecture. 2.4GHz band, mesh networking support.",
     specs: {
       Frequency: "2.4 GHz",
@@ -819,7 +839,7 @@ const products = [
     orig: 229,
     badge: "",
     badgeType: "",
-    image: "images/Wireless/5.8GHz WiFi Module.jpeg",
+    image: "",
     desc: "Dual-band WiFi 5G module for IoT applications. MIMO technology for extended range.",
     specs: {
       Band: "5.8 GHz",
@@ -834,12 +854,11 @@ const products = [
     id: 24.3,
     name: "GSM SIM800L Module",
     cat: "Wireless",
-    emoji: "📞",
     price: 299,
     orig: 379,
     badge: "Hot",
     badgeType: "badge-hot",
-    image: "images/Wireless/GSM SIM800L Module.jpeg",
+    image: "images/Wireless/GSM SIM800L Module.webp",
     desc: "Quad-band GSM/GPRS module. Full TCP/IP stack, SMS/GPRS data, SMS support.",
     specs: {
       Band: "Quad GSM",
@@ -854,12 +873,11 @@ const products = [
     id: 25,
     name: "433MHz RF Kit (Tx+Rx)",
     cat: "Wireless",
-    emoji: "📶",
     price: 89,
     orig: 109,
     badge: "",
     badgeType: "",
-    image: "images/Wireless/HC-05 Bluetooth Module.jpeg",
+    image: "images/Wireless/433MHz RF Kit (Tx+Rx).webp",
     desc: "Simple 433MHz ASK transmitter and receiver pair. For remote controls and wireless data.",
     specs: {
       Frequency: "433.92 MHz",
@@ -879,7 +897,7 @@ const products = [
     orig: 249,
     badge: "",
     badgeType: "",
-    image: "images/Power/18650 LiPo Cell.jpeg",
+    image: "",
     desc: "3.7V 3000mAh protected Li-Ion cell. PCB protection against overcharge, overdischarge, short circuit.",
     specs: {
       Voltage: "3.7V",
@@ -899,7 +917,7 @@ const products = [
     orig: 59,
     badge: "",
     badgeType: "",
-    image: "images/Power/LM7805 Regulator.jpeg",
+    image: "",
     desc: "5V linear regulator, 1A, TO-220. Input up to 35V. Thermal shutdown and current limiting.",
     specs: {
       Output: "5V",
@@ -919,7 +937,7 @@ const products = [
     orig: 49,
     badge: "",
     badgeType: "",
-    image: "images/Power/TP4056 Charging Module.jpeg",
+    image: "",
     desc: "Li-Ion charging module with protection. Micro USB input, 1A max charge current, LED indicators.",
     specs: {
       Input: "USB 5V",
@@ -939,7 +957,7 @@ const products = [
     orig: 99,
     badge: "",
     badgeType: "",
-    image: "images/Power/Buck Converter.jpeg",
+    image: "",
     desc: "DC-DC step-down converter. 4.75–23V input to 1–17V output. 1.8A max. 96% efficiency.",
     specs: {
       Input: "4.75–23V",
@@ -959,7 +977,7 @@ const products = [
     orig: 179,
     badge: "",
     badgeType: "",
-    image: "images/Display/OLED Display.jpeg",
+    image: "",
     desc: "128×64 SSD1306 OLED. Crisp white pixels, I2C. Compatible with Arduino, ESP32, Raspberry Pi.",
     specs: {
       Resolution: "128×64 px",
@@ -979,7 +997,7 @@ const products = [
     orig: 249,
     badge: "",
     badgeType: "",
-    image: "images/Display/TFT Color Display.jpeg",
+    image: "",
     desc: "ST7735 128×160 color TFT. SPI interface, 262K colors, includes SD card slot.",
     specs: {
       Resolution: "128×160",
@@ -999,7 +1017,7 @@ const products = [
     orig: 159,
     badge: "",
     badgeType: "",
-    image: "images/Display/LCD 16x2.jpeg",
+    image: "",
     desc: "Classic 16×2 character LCD with I2C backpack. Only 2 wires to Arduino. Blue backlight.",
     specs: {
       Characters: "16×2",
@@ -1019,7 +1037,7 @@ const products = [
     orig: 399,
     badge: "Hot",
     badgeType: "badge-hot",
-    image: "images/Tools/Soldering Iron.jpeg",
+    image: "",
     desc: "Temperature-controlled 60W iron. 200–450°C, ESD-safe handle, 30 sec heat-up.",
     specs: {
       Power: "60W",
@@ -1059,7 +1077,7 @@ const products = [
     orig: 109,
     badge: "",
     badgeType: "",
-    image: "images/Tools/Jumper Wires.jpeg",
+    image: "",
     desc: "40 M-M, 40 M-F, 40 F-F jumper wires. 20cm length, 2.54mm pitch.",
     specs: {
       "M-M": "40 wires",
@@ -1079,7 +1097,7 @@ const products = [
     orig: 299,
     badge: "",
     badgeType: "",
-    image: "images/Tools/Multimeter.jpeg",
+    image: "",
     desc: "3.5-digit LCD multimeter. DC/AC voltage, DC current, resistance, diode test.",
     specs: {
       Display: "3.5 digit LCD",
@@ -1099,6 +1117,7 @@ const products = [
     orig: 599,
     badge: "New",
     badgeType: "badge-new",
+    image: "",
     desc: "USB logic analyzer. 8 channels, 24MHz. Sigrok/PulseView compatible. Protocol decoding.",
     specs: {
       Channels: "8",
@@ -1118,6 +1137,7 @@ const products = [
     orig: 279,
     badge: "",
     badgeType: "",
+    image: "",
     desc: "High-frequency oscilloscope probes. 100MHz bandwidth, 3 pieces with clips and leads.",
     specs: {
       Bandwidth: "100 MHz",
@@ -1137,7 +1157,7 @@ const products = [
     orig: 999,
     badge: "Hot",
     badgeType: "badge-hot",
-    desc: "Portable USB oscilloscope. 200MS/s, 2 channels, FFT analysis, cross-platform software.",
+    image: "",
     specs: {
       "Sample Rate": "200 MS/s",
       Channels: "2",
@@ -1156,7 +1176,7 @@ const products = [
     orig: 119,
     badge: "",
     badgeType: "",
-    desc: "PCB assembly station with 3.5x magnifying glass, articulated arms, alligator clips.",
+    image: "",
     specs: {
       Magnification: "3.5x",
       "LED Light": "Built-in",
@@ -1175,6 +1195,7 @@ const products = [
     orig: 1499,
     badge: "Popular",
     badgeType: "badge-pop",
+    image: "",
     desc: "Complete beginner kit: Arduino Uno, breadboard, 30+ sensors, LEDs, resistors, jumper wires, servo, I2C LCD, 80-page booklet.",
     specs: {
       Board: "Arduino Uno R3",
@@ -1205,6 +1226,7 @@ const products = [
     orig: 1999,
     badge: "Hot",
     badgeType: "badge-hot",
+    image: "",
     desc: "ESP32 based IoT kit. Control appliances via WiFi, monitor temperature, humidity, motion.",
     specs: {
       Board: "ESP32 DevKit",
@@ -1233,6 +1255,7 @@ const products = [
     orig: 2499,
     badge: "New",
     badgeType: "badge-new",
+    image: "",
     desc: "Build wheeled robots and robotic arms. Arduino, L298N, DC/servo motors, chassis, Bluetooth.",
     specs: {
       Board: "Arduino Mega",
@@ -1261,6 +1284,7 @@ const products = [
     orig: 1199,
     badge: "",
     badgeType: "",
+    image: "",
     desc: "Build a WiFi weather station. ESP8266 + BMP280, DHT22, LDR + OLED. Uploads to ThingSpeak.",
     specs: {
       Board: "ESP8266 NodeMCU",
@@ -1289,6 +1313,7 @@ const products = [
     orig: 2799,
     badge: "Advanced",
     badgeType: "badge-new",
+    image: "",
     desc: "Long-range IoT network kit. Build a LoRaWAN node and gateway. For agriculture, remote sensing.",
     specs: {
       Node: "Arduino+SX1278",
@@ -1317,6 +1342,7 @@ const products = [
     orig: 3999,
     badge: "Hot",
     badgeType: "badge-hot",
+    image: "",
     desc: "Build your own quadcopter. STM32 flight controller, ESCs, brushless motors, 250mm frame.",
     specs: {
       Controller: "STM32 F4",
@@ -1543,7 +1569,8 @@ function updateTrackUI() {
 // ════════════════════════════════
 function renderHomePage() {
   // Hero stack
-  document.getElementById("heroStack").innerHTML = products
+  const heroStack = document.getElementById("heroStack");
+  heroStack.innerHTML = products
     .slice(0, 4)
     .map(
       (p) => `
@@ -1554,6 +1581,12 @@ function renderHomePage() {
     </div>`,
     )
     .join("");
+
+  heroStack.style.opacity = "0";
+  requestAnimationFrame(() => {
+    heroStack.style.transition = "opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+    heroStack.style.opacity = "1";
+  });
 
   // Categories
   document.getElementById("homeCategories").innerHTML = categories
@@ -1729,8 +1762,16 @@ function renderCatProducts() {
     filtered.sort((a, b) => a.name.localeCompare(b.name));
   document.getElementById("catResultCount").innerHTML =
     `<strong>${filtered.length}</strong> products`;
-  document.getElementById("catProductsGrid").innerHTML =
-    renderProdCards(filtered);
+
+  requestAnimationFrame(() => {
+    const grid = document.getElementById("catProductsGrid");
+    grid.innerHTML = renderProdCards(filtered);
+    grid.style.opacity = "0";
+    grid.style.transition = "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+    requestAnimationFrame(() => {
+      grid.style.opacity = "1";
+    });
+  });
 }
 
 function filterByPrice(val) {
